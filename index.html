@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1.0">
+  <title>Speed Test</title>
+  <script type="module">
+
+   import SpeedTest from 'https://cdn.skypack.dev/@cloudflare/speedtest';
+
+   const config = {
+     autoStart: false,
+     measurements: [
+       { 'type': 'latency', numPackets: 20 },
+       { 'type': 'latency', numPackets: 20 },
+       { type: 'download', bytes: 1e5, count: 5 },
+       { type: 'upload', bytes: 1e5, count: 5 },
+       {
+         type: 'packetLoss',
+         numPackets: 1e3,
+         batchSize: 10,
+         batchWaitTime: 10, // ms (in between batches)
+         responsesWaitTime: 3000 // ms (silent time after last sent msg)
+       }
+     ]
+   }
+
+   const metaRequest = await fetch('https://speed.cloudflare.com/meta');
+   const meta = { meta: JSON.parse(await metaRequest.text())};
+
+   const engine = new SpeedTest(config);
+   engine.onFinish = results => {
+     const summary = { summary: results.getSummary()};
+     const scores = { scores: results.getScores()};
+     console.log(JSON.stringify({...meta, ...summary, ...scores}, null, 2));
+     const finishedElement = document.createElement('div');
+     finishedElement.id = 'speedtest-finished';
+     document.body.appendChild(finishedElement);
+   };
+
+   engine.play();
+
+  </script>
+</head>
+<body>
+</body>
+</html>

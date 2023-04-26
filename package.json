@@ -1,0 +1,16 @@
+{
+  "name": "conntest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "HEADLESS=new node run.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cloudflare/speedtest": "^1.0.5",
+    "jsdom": "^21.1.1",
+    "puppeteer": "^19.11.1"
+  }
+}
