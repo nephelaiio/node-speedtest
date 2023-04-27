@@ -17,7 +17,7 @@ The following packages/applications must be available in the environment
 - [Node.js](https://nodejs.org/)
 - [Chrome browser](https://www.google.com/chrome/)
 
-Repository was developed and tested against Ubuntu latest version, see 
+Repository was developed and tested against Ubuntu latest version
 
 ## Usage
 
@@ -41,3 +41,5 @@ node run-headless.js
 ```
 
 The console.log statements from the `index.html` file will be printed to stdout as the speed test progresses.
+
+See our [demo workflow](https://github.com/nephelaiio/node-speedtest/actions/workflows/demo.yml) for more details and sample output

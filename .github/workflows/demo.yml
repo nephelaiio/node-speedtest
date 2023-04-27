@@ -2,16 +2,20 @@
 name: Demo Speed Test
 
 on:
+
   push:
     branches:
       - main
   workflow_dispatch:
 
 jobs:
+
   run-speed-test:
+
     runs-on: ubuntu-latest
 
     steps:
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
@@ -25,7 +29,7 @@ jobs:
       id: setup-chrome
 
     - name: Debug Google Chrome version
-    - run: |
+      run: |
         echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
         ${{ steps.setup-chrome.outputs.chrome-path }} --version
 
