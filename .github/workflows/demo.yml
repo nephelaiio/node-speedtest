@@ -1,0 +1,36 @@
+---
+name: Demo Speed Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-speed-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install Google Chrome
+      uses: browser-actions/setup-chrome@v1
+      id: setup-chrome
+
+    - name: Debug Google Chrome version
+    - run: |
+        echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
+        ${{ steps.setup-chrome.outputs.chrome-path }} --version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Speed Test
+      run: npm --silent test
