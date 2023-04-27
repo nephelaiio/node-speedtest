@@ -5,6 +5,8 @@
 
 This repository contains a simple speed test implementation using the Cloudflare SpeedTest API and runs it in a headless Chrome browser using Puppeteer.
 
+Configuration reflects minimal measurement settings as declared by cloudflare/speedtest library [configuration](https://github.com/cloudflare/speedtest/blob/main/src/config/defaultConfig.js) and is meant as a starting point to produce and test settings that allow minimally intrusive and reliable tests from endpoints; PRs are welcome
+
 ## Files
 
 - `index.html`: This file contains the HTML and JavaScript code for running the speed test using the Cloudflare SpeedTest API.
