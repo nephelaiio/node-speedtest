@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "HEADLESS=new node run.js"
+    "test": "HEADLESS=new node run.js",
+    "debug": "node run.js"
   },
   "author": "",
   "license": "ISC",

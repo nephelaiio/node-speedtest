@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content=
-  "width=device-width, initial-scale=1.0">
-  <title>Speed Test</title>
-  <script type="module">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>Speed Test</title>
+    <script type="module">
 
-   import SpeedTest from 'https://cdn.skypack.dev/@cloudflare/speedtest';
+    import SpeedTest from 'https://cdn.skypack.dev/@cloudflare/speedtest';
 
-   const config = {
+    const config = {
      autoStart: false,
      measurements: [
        { 'type': 'latency', numPackets: 20 },
@@ -24,28 +24,35 @@
          responsesWaitTime: 3000 // ms (silent time after last sent msg)
        }
      ]
-   }
+    }
 
-   const metaRequest = await fetch('https://speed.cloudflare.com/meta');
-   const meta = JSON.parse(await metaRequest.text());
+    const safeFetch = async (url, options = {}) => {
+     try {
+       const request = await fetch(url, options);
+       const json = JSON.parse(await request.text());
+       const headers = await request.headers;
+       return { json , headers };
+     } catch (_) {
+       return {};
+     }
+    }
 
-   const tsRequest = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
-   const { utc_datetime, unixtime } = JSON.parse(await tsRequest.text())
-   const ts = { dateTime: utc_datetime, epoch: unixtime }
+    const meta = (await safeFetch('https://speed.cloudflare.com/meta')).json;
+    const ts = (await safeFetch('https://worldtimeapi.org/api/timezone/Etc/UTC')).json;
 
-   const engine = new SpeedTest(config);
-   engine.onFinish = results => {
+    const engine = new SpeedTest(config);
+    engine.onFinish = results => {
      const summary = results.getSummary();
      const scores = results.getScores();
      console.log(JSON.stringify({...scores, ...summary, ...meta, ...ts}, null, 2));
      const finishedElement = document.createElement('div');
      finishedElement.id = 'speedtest-finished';
      document.body.appendChild(finishedElement);
-   };
+    };
 
-   engine.play();
+    engine.play();
 
-  </script>
+    </script>
 </head>
 <body>
 </body>
