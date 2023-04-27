@@ -39,7 +39,7 @@ npm install
 3. Run the speed test in headless Chrome:
 
 ```
-node run-headless.js
+npm test
 ```
 
 The console.log statements from the `index.html` file will be printed to stdout as the speed test progresses.
