@@ -1,7 +1,7 @@
 ---
 # Speed Test with Headless Chrome
 
-[![Build Status](https://github.com/nephelaiio/node-speedtest/workflows/demo/badge.svg)](https://github.com/nephelaiio/node-speedtest/actions)
+[![Build Status](https://github.com/nephelaiio/node-speedtest/actions/workflows/demo.yml/badge.svg)](https://github.com/nephelaiio/node-speedtest/actions)
 
 This repository contains a simple speed test implementation using the Cloudflare SpeedTest API and runs it in a headless Chrome browser using Puppeteer.
 
