@@ -27,13 +27,17 @@
    }
 
    const metaRequest = await fetch('https://speed.cloudflare.com/meta');
-   const meta = { meta: JSON.parse(await metaRequest.text())};
+   const meta = JSON.parse(await metaRequest.text());
+
+   const tsRequest = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+   const { utc_datetime, unixtime } = JSON.parse(await tsRequest.text())
+   const ts = { dateTime: utc_datetime, epoch: unixtime }
 
    const engine = new SpeedTest(config);
    engine.onFinish = results => {
-     const summary = { summary: results.getSummary()};
-     const scores = { scores: results.getScores()};
-     console.log(JSON.stringify({...meta, ...summary, ...scores}, null, 2));
+     const summary = results.getSummary();
+     const scores = results.getScores();
+     console.log(JSON.stringify({...scores, ...summary, ...meta, ...ts}, null, 2));
      const finishedElement = document.createElement('div');
      finishedElement.id = 'speedtest-finished';
      document.body.appendChild(finishedElement);
