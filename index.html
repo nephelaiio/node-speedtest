@@ -39,7 +39,8 @@
 
     const ua = { user_agent: window.navigator.userAgent }
     const meta = (await safeFetch('https://speed.cloudflare.com/meta')).json;
-    const ts = (await safeFetch('https://worldtimeapi.org/api/timezone/Etc/UTC')).json;
+    const { utc_datetime, unixtime } = (await safeFetch('https://worldtimeapi.org/api/timezone/Etc/UTC')).json;
+    const ts = { epoch: unixtime, dateTime: utc_datetime };
 
     const engine = new SpeedTest(config);
     engine.onFinish = results => {
