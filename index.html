@@ -37,6 +37,7 @@
      }
     }
 
+    const ua = { user_agent: window.navigator.userAgent }
     const meta = (await safeFetch('https://speed.cloudflare.com/meta')).json;
     const ts = (await safeFetch('https://worldtimeapi.org/api/timezone/Etc/UTC')).json;
 
@@ -44,7 +45,7 @@
     engine.onFinish = results => {
      const summary = results.getSummary();
      const scores = results.getScores();
-     console.log(JSON.stringify({...scores, ...summary, ...meta, ...ts}, null, 2));
+     console.log(JSON.stringify({...scores, ...summary, ...meta, ...ts, ...ua}, null, 2));
      const finishedElement = document.createElement('div');
      finishedElement.id = 'speedtest-finished';
      document.body.appendChild(finishedElement);
